@@ -1,5 +1,6 @@
 ﻿using System;
-using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace adventofcode2016
 {
@@ -7,17 +8,15 @@ namespace adventofcode2016
 	{
 		static void Main(string[] args)
 		{
-			var monitor = new Day8.Monitor(50, 6);
-			foreach (var line in File.ReadAllLines("Day8_input.txt"))
-			{
-				monitor.ActivateCommand(line);
-			}
+			var instances = from t in Assembly.GetExecutingAssembly().GetTypes()
+											where t.GetInterfaces().Contains(typeof(IDay))
+															 && t.GetConstructor(Type.EmptyTypes) != null
+											orderby t.Name
+											select Activator.CreateInstance(t) as IDay;
 
-			Console.WriteLine("Anser A: " +monitor.NumberOfPixelsLit());
-			Console.WriteLine("Anser B: ");
-			foreach (var line in monitor.GetOutput())
+			foreach (var day in instances)
 			{
-				Console.WriteLine(line);
+				day.PrintDay();
 			}
 
 			Console.ReadLine();

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace adventofcode2016
 {
-	public class Day8
+	public class Day8 : IDay
 	{
 		public class Monitor
 		{
@@ -113,6 +112,29 @@ namespace adventofcode2016
 			{
 				return _pixels.Count(p => p == '#');
 			}
+		}
+
+		// ---------------------------------------------------------------------------
+		private readonly Monitor _monitor;
+		public Day8()
+		{
+			_monitor = new Monitor(50, 6);
+			foreach (var line in File.ReadAllLines("Day8_input.txt"))
+			{
+				_monitor.ActivateCommand(line);
+			}
+		}
+
+		public void PrintDay()
+		{
+			Console.WriteLine("--- Day 9: Explosives in Cyberspace ---");
+			Console.WriteLine("Answer A: " + _monitor.NumberOfPixelsLit());
+			Console.WriteLine("Answer B: ");
+			foreach (var line in _monitor.GetOutput())
+			{
+				Console.WriteLine(line);
+			}
+			Console.WriteLine();
 		}
 	}
 }
