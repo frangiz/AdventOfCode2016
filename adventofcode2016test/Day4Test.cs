@@ -1,7 +1,6 @@
 ﻿using adventofcode2016;
 using NUnit.Framework;
 using System.Collections.Generic;
-using System.IO;
 
 namespace adventofcode2016test
 {
@@ -71,14 +70,6 @@ namespace adventofcode2016test
 		}
 
 		[Test]
-		public void AnswerA()
-		{
-			var encryptedNames = File.ReadAllLines("Day4_input.txt");
-
-			Assert.AreEqual(409147, new Day4().FindSectorId(encryptedNames).Item1);
-		}
-
-		[Test]
 		public void ExampleB1()
 		{
 			var encryptedName = "qzmt-zixmtkozy-ivhz-343[abcde]";
@@ -86,14 +77,6 @@ namespace adventofcode2016test
 			room.RotateRoomName(room.SectorId);
 			Assert.AreEqual("very encrypted name", room.RoomName);
 			Assert.AreEqual(343, room.SectorId);
-		}
-
-		[Test]
-		public void AnswerB()
-		{
-			var encryptedNames = File.ReadAllLines("Day4_input.txt");
-
-			Assert.AreEqual(991, new Day4().FindSectorId(encryptedNames, true).Item2);
 		}
 	}
 }
