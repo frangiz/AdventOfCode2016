@@ -11,8 +11,10 @@ namespace adventofcode2016
 			var instances = from t in Assembly.GetExecutingAssembly().GetTypes()
 											where t.GetInterfaces().Contains(typeof(IDay))
 															 && t.GetConstructor(Type.EmptyTypes) != null
-											orderby t.Name descending
 											select Activator.CreateInstance(t) as IDay;
+
+			instances = instances.OrderByDescending(
+				instance => int.Parse(instance.GetType().Name.Replace("Day", "")));
 
 			foreach (var day in instances)
 			{
