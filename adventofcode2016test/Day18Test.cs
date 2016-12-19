@@ -13,6 +13,5 @@ namespace adventofcode2016test
 			trapRoom.AddRows(9);
 			Assert.AreEqual(38, trapRoom.NumberOfSafeTiles);
 		}
-
 	}
 }
