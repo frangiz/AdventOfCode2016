@@ -10,7 +10,8 @@ namespace adventofcode2016
 		public class Computer
 		{
 			public readonly int[] Registers;
-			private readonly Dictionary<string, Func<int, string, string, int>> _instructionHandlers;
+			protected readonly Dictionary<string, Func<int, string, string, int>> _instructionHandlers;
+			protected List<string> _instructions;
 
 			public Computer()
 			{
@@ -25,9 +26,10 @@ namespace adventofcode2016
 			public void ExecuteInstructions(List<string> instructions)
 			{
 				var index = 0;
-				while (index >= 0 && index < instructions.Count)
+				_instructions = instructions;
+				while (index >= 0 && index < _instructions.Count)
 				{
-					var instruction = instructions[index];
+					var instruction = _instructions[index];
 					var parts = instruction.Split(' ');
 					index = _instructionHandlers[instruction.Substring(0, 3)].Invoke(
 						index,
@@ -36,11 +38,11 @@ namespace adventofcode2016
 				}
 			}
 
-			private int HandleCopy(int index, string arg1, string arg2)
+			protected virtual int HandleCopy(int index, string arg1, string arg2)
 			{
-				if (char.IsDigit(arg1[0]))
+				var value = 0;
+				if (int.TryParse(arg1, out value))
 				{
-					var value = int.Parse(arg1);
 					var registerIndex = CharToRegisterId(arg2[0]);
 					Registers[registerIndex] = value;
 				}
@@ -54,25 +56,25 @@ namespace adventofcode2016
 				return ++index;
 			}
 
-			private int HandleIncrement(int index, string arg1, string arg2)
+			protected virtual int HandleIncrement(int index, string arg1, string arg2)
 			{
 				var registerIndex = CharToRegisterId(arg1[0]);
 				Registers[registerIndex]++;
 				return ++index;
 			}
 
-			private int HandleDecrement(int index, string arg1, string arg2)
+			protected virtual int HandleDecrement(int index, string arg1, string arg2)
 			{
 				var registerIndex = CharToRegisterId(arg1[0]);
 				Registers[registerIndex]--;
 				return ++index;
 			}
 
-			private int HandleJump(int index, string arg1, string arg2)
+			protected virtual int HandleJump(int index, string arg1, string arg2)
 			{
 				if (char.IsDigit(arg1[0]) && arg1[0] != '0')
 				{
-					return index + int.Parse(arg2);
+					return index + CharToValue(arg2);
 				}
 				else if (char.IsLetter(arg1[0]))
 				{
@@ -83,9 +85,14 @@ namespace adventofcode2016
 				return ++index;
 			}
 
-			private int CharToRegisterId(char c)
+			protected virtual int CharToRegisterId(char c)
 			{
 				return c - 'a';
+			}
+
+			protected virtual int CharToValue(string arg)
+			{
+				return char.IsDigit(arg[0]) ? int.Parse(arg) : Registers[CharToRegisterId(arg[0])];
 			}
 		}
 
