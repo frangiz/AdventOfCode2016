@@ -131,9 +131,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 13: A Maze of Twisty Little Cubicles ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 13: A Maze of Twisty Little Cubicles ---");
 			{
 				var solver = new PuzzleSolver();
 				Console.WriteLine("Answer A: " + solver.FindShortestPath(

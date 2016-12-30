@@ -206,18 +206,19 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 11: Radioisotope Thermoelectric Generators ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 11: Radioisotope Thermoelectric Generators ---");
 			{
 				var startState = new State(new[] { 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 }, 0, 0, null);
 				var endState = new State(new[]   { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 }, 0, 3, null);
 				Console.WriteLine("Answer A: " + SearchAnswer(startState, endState));
 			}
 			{
-				/*var startState = new State(new[] { 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, 0, 0, null);
+				var startState = new State(new[] { 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, 0, 0, null);
 				var endState = new State(new[]   { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 }, 0, 3, null);
-				Console.WriteLine("Answer B: " + SearchAnswer(startState, endState));*/
+				Console.WriteLine("Answer B: " + SearchAnswer(startState, endState));
 			}
 			Console.WriteLine();
 		}

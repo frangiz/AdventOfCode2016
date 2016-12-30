@@ -72,9 +72,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 23: Safe Cracking ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 23: Safe Cracking ---");
 			{
 				var computer = new Computer();
 				computer.Registers[0] = 7;

@@ -83,9 +83,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 19: An Elephant Named Joseph ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 19: An Elephant Named Joseph ---");
 			{
 				var game = new WhiteElephantGame(3005290);
 				game.TakePresentsFromLeft();

@@ -2,6 +2,8 @@
 {
 	interface IDay
 	{
+		string Name { get; }
+
 		void PrintDay();
 	}
 }

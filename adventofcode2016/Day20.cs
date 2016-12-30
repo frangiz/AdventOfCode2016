@@ -61,9 +61,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 20: Firewall Rules ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 20: Firewall Rules ---");
 			{
 				var fw = new Firewall(File.ReadAllLines("DAy20_input.txt"));
 				Console.WriteLine("Answer A: " + fw.LowestAvailableIP(0, ulong.MaxValue));

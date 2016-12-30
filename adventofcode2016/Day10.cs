@@ -130,10 +130,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 10: Balance Bots ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 10: Balance Bots ---");
-
 			var botFactory = new BotFactory(210, 200);
 			botFactory.AddInstructions(File.ReadAllLines("Day10_input.txt").OrderBy(l => l));
 

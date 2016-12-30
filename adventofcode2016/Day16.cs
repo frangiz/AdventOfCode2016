@@ -29,9 +29,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 16: Dragon Checksum ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 16: Dragon Checksum ---");
 			{
 				var data = GenerateData("01000100010010111", 272);
 				Console.WriteLine("Answer A: " + GenerateChecksum(data));

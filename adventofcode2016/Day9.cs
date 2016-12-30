@@ -36,9 +36,10 @@ namespace adventofcode2016
 				+ Expand(str.Substring(index + chars));
 		}
 
+		public string Name { get { return "--- Day 9: Explosives in Cyberspace ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 9: Explosives in Cyberspace ---");
 			Console.WriteLine("Answer A: " + Expand(File.ReadAllText("Day9_input.txt")));
 			Console.WriteLine("Answer B: " + Expand(File.ReadAllText("Day9_input.txt"), true));
 			Console.WriteLine();

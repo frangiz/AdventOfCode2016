@@ -97,9 +97,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 12: Leonardo's Monorail ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 12: Leonardo's Monorail ---");
 			{
 				var computer = new Computer();
 				computer.ExecuteInstructions(File.ReadAllLines("Day12_input.txt").ToList());

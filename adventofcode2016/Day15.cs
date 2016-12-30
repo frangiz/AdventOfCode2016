@@ -50,9 +50,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 15: Timing is Everything ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 15: Timing is Everything ---");
 			{
 				var sculptur = new Sculptur(File.ReadAllLines("Day15_input.txt"));
 				Console.WriteLine("Answer A: " + sculptur.AlignDiscs());

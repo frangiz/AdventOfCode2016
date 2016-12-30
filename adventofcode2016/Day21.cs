@@ -221,9 +221,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 21: Scrambled Letters and Hash ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 21: Scrambled Letters and Hash ---");
 			{
 				var scrambler = new Scrambler();
 				Console.WriteLine("Answer A: " + scrambler.Scramble("abcdefgh",

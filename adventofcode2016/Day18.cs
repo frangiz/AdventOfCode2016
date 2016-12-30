@@ -69,9 +69,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 18: Like a Rogue ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 18: Like a Rogue ---");
 			{
 				var trapRoom = new TrapRoom(File.ReadAllText("Day18_input.txt").Trim());
 				trapRoom.AddRows(39);

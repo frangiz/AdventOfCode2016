@@ -125,9 +125,10 @@ namespace adventofcode2016
 			}
 		}
 
+		public string Name { get { return "--- Day 8: Two-Factor Authentication ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 8: Two-Factor Authentication ---");
 			Console.WriteLine("Answer A: " + _monitor.NumberOfPixelsLit());
 			Console.WriteLine("Answer B: ");
 			foreach (var line in _monitor.GetOutput())

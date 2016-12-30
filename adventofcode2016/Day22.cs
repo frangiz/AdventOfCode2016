@@ -168,9 +168,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 22: Grid Computing ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 22: Grid Computing ---");
 			{
 				var cluster = new Cluster();
 				cluster.CreateNodes(File.ReadAllLines("Day22_input.txt"));

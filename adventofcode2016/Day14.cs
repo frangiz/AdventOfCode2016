@@ -117,10 +117,10 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
+		public string Name { get { return "--- Day 14: One-Time Pad ---"; } }
+
 		public void PrintDay()
 		{
-			Console.WriteLine("--- Day 14: One-Time Pad ---");
-
 			var generator = new KeyGenerator("yjdafjpo");
 			generator.GenerateKeys();
 			Console.WriteLine("Answer A: " + generator.IndexForKeyIndex(63));
