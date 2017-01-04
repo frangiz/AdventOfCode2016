@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+
 namespace adventofcode2016
 {
-	public class Day3
+	public class Day3 : IDay
 	{
 		// ---------------------------------------------------------------------------
 		public class Parser
@@ -92,19 +95,12 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
-		private readonly Parser _parser;
-
-		public Day3(Parser parser)
-		{
-			_parser = parser;
-		}
-
-		public int ValidTriangles()
+		public static int ValidTriangles(Parser parser)
 		{
 			int count = 0;
-			while (_parser.HasNext())
+			while (parser.HasNext())
 			{
-				if (IsValidTriangle(_parser.Next())) { count++; }
+				if (IsValidTriangle(parser.Next())) { count++; }
 			}
 			return count;
 		}
@@ -116,6 +112,22 @@ namespace adventofcode2016
 			if (sides[2] + sides[0] <= sides[1]) { return false; }
 
 			return true;
+		}
+
+		// --------------------------------------------------------------------
+		public string Name { get { return "--- Day 3: Squares With Three Sides ---"; } }
+
+		public void PrintDay()
+		{
+			{
+				Console.WriteLine("Answer A: " + Day3.ValidTriangles(
+					new HorizontalParser(File.ReadAllLines("Day3_input.txt"))));
+			}
+			{
+				Console.WriteLine("Answer A: " + Day3.ValidTriangles(
+					new VerticalParser(File.ReadAllLines("Day3_input.txt"))));
+			}
+			Console.WriteLine();
 		}
 	}
 }

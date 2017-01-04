@@ -1,77 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 
 namespace adventofcode2016
 {
-	public class Day1
+	public class Day1 : IDay
 	{
-		private Vector2 _currentPos = new Vector2(0, 0);
-		private Vector2 _direction = new Vector2(0, 1);
-		private readonly List<Vector2> _positions = new List<Vector2>();
-		private bool _done = false;
-		private bool _stopOnDuplicatePos = false;
-
-		public Day1(bool stopOnDuplicatePos = false)
+		public class DistanceFinder
 		{
-			_stopOnDuplicatePos = stopOnDuplicatePos;
-		}
+			private Vector2 _currentPos = new Vector2(0, 0);
+			private Vector2 _direction = new Vector2(0, 1);
+			private readonly List<Vector2> _positions = new List<Vector2>();
+			private bool _done = false;
+			private bool _stopOnDuplicatePos = false;
 
-		public int FindDistance(string path)
-		{
-			var cmds = path.Split(',').Select(p => p.Trim());
-			foreach (var cmd in cmds)
+			public DistanceFinder(bool stopOnDuplicatePos = false)
 			{
-				Turn(cmd.Substring(0, 1));
-				Walk(int.Parse(cmd.Substring(1)));
-				if (_done)
+				_stopOnDuplicatePos = stopOnDuplicatePos;
+			}
+
+			public int FindDistance(string path)
+			{
+				var cmds = path.Split(',').Select(p => p.Trim());
+				foreach (var cmd in cmds)
 				{
-					break;
+					Turn(cmd.Substring(0, 1));
+					Walk(int.Parse(cmd.Substring(1)));
+					if (_done)
+					{
+						break;
+					}
+				}
+
+				return (int)(Math.Abs(_currentPos.X) + Math.Abs(_currentPos.Y));
+			}
+
+			private void Walk(int steps)
+			{
+				for (int i = 0; i < steps; i++)
+				{
+					TakeStep();
+					if (PositionAlreadyVisited(_currentPos) && _stopOnDuplicatePos)
+					{
+						_done = true;
+						break;
+					}
+					_positions.Add(_currentPos);
 				}
 			}
 
-			return (int)(Math.Abs(_currentPos.X) + Math.Abs(_currentPos.Y));
-		}
-
-		private void Walk(int steps)
-		{
-			for (int i = 0; i < steps; i++)
+			private bool PositionAlreadyVisited(Vector2 position)
 			{
-				TakeStep();
-				if (PositionAlreadyVisited(_currentPos) && _stopOnDuplicatePos)
+				return _positions.Contains(position);
+			}
+
+			private void Turn(string dir)
+			{
+				var rotation = 0;
+				if (dir == "L")
 				{
-					_done = true;
-					break;
+					rotation = -90;
 				}
-				_positions.Add(_currentPos);
+				else if (dir == "R")
+				{
+					rotation = +90;
+				}
+				_direction = Vector2.Transform(_direction,
+						Matrix3x2.CreateRotation((float)(rotation * (Math.PI / 180))));
+				var l = _direction.Length();
 			}
-		}
 
-		private bool PositionAlreadyVisited(Vector2 position)
-		{
-			return _positions.Contains(position);
-		}
-
-		private void Turn(string dir)
-		{
-			var rotation = 0;
-			if (dir == "L")
+			private void TakeStep()
 			{
-				rotation = -90;
+				_currentPos = Vector2.Add(_currentPos, _direction);
 			}
-			else if (dir == "R")
-			{
-				rotation = +90;
-			}
-			_direction = Vector2.Transform(_direction,
-					Matrix3x2.CreateRotation((float)(rotation * (Math.PI / 180))));
-			var l = _direction.Length();
 		}
 
-		private void TakeStep()
+		// --------------------------------------------------------------------
+		public string Name { get { return "--- Day 1: No Time for a Taxicab ---"; } }
+
+		public void PrintDay()
 		{
-			_currentPos = Vector2.Add(_currentPos, _direction);
+			Console.WriteLine("Answer A: " + new DistanceFinder().FindDistance(File.ReadAllText("Day1_input.txt")));
+			Console.WriteLine("Answer B: " + new DistanceFinder(true).FindDistance(File.ReadAllText("Day1_input.txt")));
+			Console.WriteLine();
 		}
 	}
 }

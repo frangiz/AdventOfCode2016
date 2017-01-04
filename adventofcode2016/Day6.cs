@@ -1,30 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace adventofcode2016
 {
-	public class Day6
+	public class Day6 : IDay
 	{
-		private readonly List<Dictionary<char, int>> _data = new List<Dictionary<char, int>>();
-
-		public Day6(int length)
+		public static string Decode(int length, IEnumerable<string> lines, bool selectLeastCommonChar = false)
 		{
+			var data = new List<Dictionary<char, int>>();
 			for (var i = 0; i < length; i++)
 			{
-				_data.Add(new Dictionary<char, int>());
+				data.Add(new Dictionary<char, int>());
 			}
-		}
 
-		public string Decode(IEnumerable<string> lines, bool selectLeastCommonChar = false)
-		{
 			foreach (var line in lines)
 			{
-				AddLine(line);
+				AddLine(line, ref data);
 			}
 
 			var sb = new StringBuilder();
-			foreach (var tokenInfo in _data)
+			foreach (var tokenInfo in data)
 			{
 				if (selectLeastCommonChar)
 				{
@@ -39,17 +37,28 @@ namespace adventofcode2016
 			return sb.ToString();
 		}
 
-		private void AddLine(string line)
+		private static void AddLine(string line, ref List<Dictionary<char, int>> data)
 		{
 			for (var charIndex = 0; charIndex < line.Length; charIndex++)
 			{
 				var currentChar = line[charIndex];
-				if (!_data[charIndex].ContainsKey(currentChar))
+				if (!data[charIndex].ContainsKey(currentChar))
 				{
-					_data[charIndex][currentChar] = 0;
+					data[charIndex][currentChar] = 0;
 				}
-				_data[charIndex][currentChar]++;
+				data[charIndex][currentChar]++;
 			}
+		}
+
+		// --------------------------------------------------------------------
+		public string Name { get { return "--- Day 6: Signals and Noise ---"; } }
+
+		public void PrintDay()
+		{
+			var lines = File.ReadAllLines("Day6_input.txt");
+			Console.WriteLine("Answer A: " + Day6.Decode(lines[0].Length, lines));
+			Console.WriteLine("Answer B: " + Day6.Decode(lines[0].Length, lines, true));
+			Console.WriteLine();
 		}
 	}
 }

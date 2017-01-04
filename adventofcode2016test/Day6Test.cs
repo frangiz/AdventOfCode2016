@@ -1,6 +1,7 @@
 ﻿using adventofcode2016;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
 
 namespace adventofcode2016test
 {
@@ -29,7 +30,14 @@ namespace adventofcode2016test
 				"dvrsen",
 				"enarar"
 			};
-			Assert.AreEqual("easter", new Day6(lines[0].Length).Decode(lines));
+			Assert.AreEqual("easter", Day6.Decode(lines[0].Length, lines));
+		}
+
+		[Test]
+		public void AnswerA()
+		{
+			var lines = File.ReadAllLines("Day6_input.txt");
+			Assert.AreEqual("qqqluigu", Day6.Decode(lines[0].Length, lines));
 		}
 
 		[Test]
@@ -54,8 +62,14 @@ namespace adventofcode2016test
 				"dvrsen",
 				"enarar"
 			};
-			Assert.AreEqual("advent", new Day6(lines[0].Length).Decode(lines, true));
+			Assert.AreEqual("advent", Day6.Decode(lines[0].Length, lines, true));
 		}
 
+		[Test]
+		public void AnswerB()
+		{
+			var lines = File.ReadAllLines("Day6_input.txt");
+			Assert.AreEqual("lsoypmia", Day6.Decode(lines[0].Length, lines, true));
+		}
 	}
 }

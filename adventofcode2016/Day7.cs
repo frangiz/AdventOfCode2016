@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace adventofcode2016
 {
-	public class Day7
+	public class Day7 : IDay
 	{
 		public class IPv7
 		{
@@ -88,6 +90,16 @@ namespace adventofcode2016
 		public static int CountIPv7SSLSupport(IEnumerable<string> addresses)
 		{
 			return addresses.Count(a => new IPv7(a).SSLSupport());
+		}
+
+		// --------------------------------------------------------------------
+		public string Name { get { return "--- Day 7: Internet Protocol Version 7 ---"; } }
+
+		public void PrintDay()
+		{
+			Console.WriteLine("Answer A: " + CountIPv7TLSSupport(File.ReadAllLines("Day7_input.txt")));
+			Console.WriteLine("Answer B: " + CountIPv7SSLSupport(File.ReadAllLines("Day7_input.txt")));
+			Console.WriteLine();
 		}
 	}
 }

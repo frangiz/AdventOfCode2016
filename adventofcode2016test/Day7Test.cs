@@ -32,6 +32,12 @@ namespace adventofcode2016test
 		}
 
 		[Test]
+		public void AnswerA()
+		{
+			Assert.AreEqual(115, Day7.CountIPv7TLSSupport(File.ReadAllLines("Day7_input.txt")));
+		}
+
+		[Test]
 		public void ExampleB1()
 		{
 			Assert.True(new Day7.IPv7("aba[bab]xyz").SSLSupport());
@@ -55,5 +61,10 @@ namespace adventofcode2016test
 			Assert.True(new Day7.IPv7("zazbz[bzb]cdb").SSLSupport());
 		}
 
+		[Test]
+		public void AnswerB()
+		{
+			Assert.AreEqual(231, Day7.CountIPv7SSLSupport(File.ReadAllLines("Day7_input.txt")));
+		}
 	}
 }

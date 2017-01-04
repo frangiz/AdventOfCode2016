@@ -1,6 +1,7 @@
 ﻿using adventofcode2016;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
 
 namespace adventofcode2016test
 {
@@ -66,7 +67,13 @@ namespace adventofcode2016test
 				"totally-real-room-200[decoy]"
 			};
 
-			Assert.AreEqual(1514, new Day4().FindSectorId(encryptedNames).Item1);
+			Assert.AreEqual(1514, Day4.FindSectorId(encryptedNames).Item1);
+		}
+
+		[Test]
+		public void AnswerA()
+		{
+			Assert.AreEqual(409147, Day4.FindSectorId(File.ReadAllLines("Day4_input.txt")).Item1);
 		}
 
 		[Test]
@@ -77,6 +84,12 @@ namespace adventofcode2016test
 			room.RotateRoomName(room.SectorId);
 			Assert.AreEqual("very encrypted name", room.RoomName);
 			Assert.AreEqual(343, room.SectorId);
+		}
+
+		[Test]
+		public void AnswerB()
+		{
+			Assert.AreEqual(991, Day4.FindSectorId(File.ReadAllLines("Day4_input.txt"), true).Item2);
 		}
 	}
 }

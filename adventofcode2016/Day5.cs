@@ -4,17 +4,16 @@ using System.Text;
 
 namespace adventofcode2016
 {
-	public class Day5
+	public class Day5 : IDay
 	{
-		private long _counter;
-
-		public char[] FindPassword(string doorId, int charsToGet, bool part2 = false)
+		public static char[] FindPassword(string doorId, int charsToGet, bool part2 = false)
 		{
+			var counter = 0;
 			var password = new char[8];
 			int index = 0;
 			while (index < charsToGet)
 			{
-				var hash = doorId + _counter.ToString();
+				var hash = doorId + counter.ToString();
 				using (var md5 = MD5.Create())
 				{
 					var bytes = md5.ComputeHash(Encoding.ASCII.GetBytes(hash));
@@ -38,10 +37,20 @@ namespace adventofcode2016
 						password[index++] = char.ToLower(hash[5]);
 					}
 				}
-				_counter++;
+				counter++;
 			}
 
 			return password;
+		}
+
+		// --------------------------------------------------------------------
+		public string Name { get { return "--- Day 5: How About a Nice Game of Chess? ---"; } }
+
+		public void PrintDay()
+		{
+			Console.WriteLine("Answer A: " + new string(FindPassword("ojvtpuvg", 8)));
+			Console.WriteLine("Answer B: " + new string(FindPassword("ojvtpuvg", 8, true)));
+			Console.WriteLine();
 		}
 	}
 }

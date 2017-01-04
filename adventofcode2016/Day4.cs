@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace adventofcode2016
 {
-	public class Day4
+	public class Day4 : IDay
 	{
 		// ---------------------------------------------------------------------------
 		public class Room
@@ -102,7 +103,7 @@ namespace adventofcode2016
 		}
 
 		// ---------------------------------------------------------------------------
-		public Tuple<int, int> FindSectorId(IEnumerable<string> encryptedNames, bool rotateRoomNames = false)
+		public static Tuple<int, int> FindSectorId(IEnumerable<string> encryptedNames, bool rotateRoomNames = false)
 		{
 			var sectorIdSum = 0;
 			var northPoleRoom = 0;
@@ -123,6 +124,20 @@ namespace adventofcode2016
 				}
 			}
 			return new Tuple<int, int>(sectorIdSum, northPoleRoom);
+		}
+
+		// --------------------------------------------------------------------
+		public string Name { get { return "--- Day 4: Security Through Obscurity ---"; } }
+
+		public void PrintDay()
+		{
+			{
+				Console.WriteLine("Answer A: " + FindSectorId(File.ReadAllLines("Day4_input.txt")).Item1);
+			}
+			{
+				Console.WriteLine("Answer B: " + FindSectorId(File.ReadAllLines("Day4_input.txt"), true).Item2);
+			}
+			Console.WriteLine();
 		}
 	}
 }
