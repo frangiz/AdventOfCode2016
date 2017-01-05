@@ -1,6 +1,8 @@
-﻿using adventofcode2016;
+﻿using adventofcode2016.Tools;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace adventofcode2016test
 {
@@ -8,9 +10,10 @@ namespace adventofcode2016test
 	internal class Day23Test
 	{
 		[Test]
+		[Category("AssemBunny")]
 		public void ExampleA1()
 		{
-			var computer = new Day23.Computer();
+			var assemBunny = new AssemBunny();
 			var instructions = new List<string>
 			{
 				"cpy 2 a",
@@ -21,8 +24,28 @@ namespace adventofcode2016test
 				"dec a",
 				"dec a"
 			};
-			computer.ExecuteInstructions(instructions);
-			Assert.AreEqual(3, computer.Registers[0]);
+			assemBunny.ExecuteInstructions(instructions);
+			Assert.AreEqual(3, assemBunny.Registers[0]);
+		}
+
+		[Test]
+		[Category("AssemBunny")]
+		public void AnswerA()
+		{
+			var assemBunny = new AssemBunny();
+			assemBunny.Registers[0] = 7;
+			assemBunny.ExecuteInstructions(File.ReadAllLines("Day23_input.txt").ToList());
+			Assert.AreEqual(11760, assemBunny.Registers[0]);
+		}
+
+		[Test]
+		[Category("AssemBunny")]
+		public void AnswerB()
+		{
+			var assemBunny = new AssemBunny();
+			assemBunny.Registers[0] = 12;
+			assemBunny.ExecuteInstructions(File.ReadAllLines("Day23_input.txt").ToList());
+			Assert.AreEqual(479008320, assemBunny.Registers[0]);
 		}
 	}
 }
