@@ -14,15 +14,15 @@ namespace adventofcode2016
 		{
 			{
 				var assemBunny = new AssemBunny();
-				assemBunny.Registers[0] = 7;
+				assemBunny.Registers['a'] = 7;
 				assemBunny.ExecuteInstructions(File.ReadAllLines("Day23_input.txt").ToList());
-				Console.WriteLine("Answer A: " + assemBunny.Registers[0]);
+				Console.WriteLine("Answer A: " + assemBunny.Registers['a']);
 			}
 			{
 				var assemBunny = new AssemBunny();
-				assemBunny.Registers[0] = 12;
+				assemBunny.Registers['a'] = 12;
 				assemBunny.ExecuteInstructions(File.ReadAllLines("Day23_input.txt").ToList());
-				Console.WriteLine("Answer B: " + assemBunny.Registers[0]);
+				Console.WriteLine("Answer B: " + assemBunny.Registers['a']);
 			}
 			Console.WriteLine();
 		}

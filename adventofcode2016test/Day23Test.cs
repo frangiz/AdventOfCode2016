@@ -25,7 +25,7 @@ namespace adventofcode2016test
 				"dec a"
 			};
 			assemBunny.ExecuteInstructions(instructions);
-			Assert.AreEqual(3, assemBunny.Registers[0]);
+			Assert.AreEqual(3, assemBunny.Registers['a']);
 		}
 
 		[Test]
@@ -33,9 +33,9 @@ namespace adventofcode2016test
 		public void AnswerA()
 		{
 			var assemBunny = new AssemBunny();
-			assemBunny.Registers[0] = 7;
+			assemBunny.Registers['a'] = 7;
 			assemBunny.ExecuteInstructions(File.ReadAllLines("Day23_input.txt").ToList());
-			Assert.AreEqual(11760, assemBunny.Registers[0]);
+			Assert.AreEqual(11760, assemBunny.Registers['a']);
 		}
 
 		[Test]
@@ -43,9 +43,9 @@ namespace adventofcode2016test
 		public void AnswerB()
 		{
 			var assemBunny = new AssemBunny();
-			assemBunny.Registers[0] = 12;
+			assemBunny.Registers['a'] = 12;
 			assemBunny.ExecuteInstructions(File.ReadAllLines("Day23_input.txt").ToList());
-			Assert.AreEqual(479008320, assemBunny.Registers[0]);
+			Assert.AreEqual(479008320, assemBunny.Registers['a']);
 		}
 	}
 }

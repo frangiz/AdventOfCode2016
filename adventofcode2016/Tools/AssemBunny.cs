@@ -5,88 +5,128 @@ namespace adventofcode2016.Tools
 {
 	public class AssemBunny
 	{
-		public readonly int[] Registers;
-		protected readonly Dictionary<string, Func<int, string, string, int>> _instructionHandlers;
-		protected List<string> _instructions;
+		public readonly Dictionary<char, int> Registers;
+
+		private enum InstructionType { Cpy, Inc, Dec, Jnz, Tgl };
+		private readonly Dictionary<InstructionType, Func<int, object, object, int>> _instructionHandlers;
+
+		private class Instruction
+		{
+			public InstructionType Type { get; set; }
+			public object Operand1 { get; set; }
+			public object Operand2 { get; set; }
+		}
+		private List<Instruction> _instructions;
 
 		public AssemBunny()
 		{
-			Registers = new int[4];
-			_instructionHandlers = new Dictionary<string, Func<int, string, string, int>>();
-			_instructionHandlers.Add("cpy", HandleCopy);
-			_instructionHandlers.Add("inc", HandleIncrement);
-			_instructionHandlers.Add("dec", HandleDecrement);
-			_instructionHandlers.Add("jnz", HandleJump);
-			_instructionHandlers.Add("tgl", HandleToggle);
+			Registers = new Dictionary<char, int> { { 'a', 0 }, { 'b', 0 }, { 'c', 0 }, { 'd', 0 } };
+
+			_instructionHandlers = new Dictionary<InstructionType, Func<int, object, object, int>>();
+			_instructionHandlers.Add(InstructionType.Cpy, HandleCopy);
+			_instructionHandlers.Add(InstructionType.Inc, HandleIncrement);
+			_instructionHandlers.Add(InstructionType.Dec, HandleDecrement);
+			_instructionHandlers.Add(InstructionType.Jnz, HandleJump);
+			_instructionHandlers.Add(InstructionType.Tgl, HandleToggle);
 		}
 
 		public void ExecuteInstructions(List<string> instructions)
 		{
+			var popularity = new List<int>();
+			instructions.ForEach(i => popularity.Add(0));
 			var index = 0;
-			_instructions = instructions;
+			_instructions = new List<Instruction>();
+			foreach (var instruction in instructions)
+			{
+				var parts = instruction.Split(' ');
+				var type = char.ToUpper(parts[0][0]) + parts[0].Substring(1);
+				_instructions.Add(new Instruction
+				{
+					Type = (InstructionType)Enum.Parse(typeof(InstructionType), type),
+					Operand1 = ParseOperand(parts[1]),
+					Operand2 = ParseOperand(parts.Length >= 3 ? parts[2] : "")
+				});
+			}
+
 			while (index >= 0 && index < _instructions.Count)
 			{
+				popularity[index]++;
 				var instruction = _instructions[index];
-				var parts = instruction.Split(' ');
-				index = _instructionHandlers[instruction.Substring(0, 3)].Invoke(
-					index,
-					parts[1],
-					parts.Length >= 3 ? parts[2] : "");
+				index = _instructionHandlers[instruction.Type].Invoke(
+					index, instruction.Operand1, instruction.Operand2);
 			}
 		}
 
-		private int HandleCopy(int index, string arg1, string arg2)
+		private object ParseOperand(string str)
 		{
 			var value = 0;
-			if (int.TryParse(arg1, out value))
+			if (int.TryParse(str, out value))
 			{
-				var registerIndex = CharToRegisterId(arg2[0]);
-				Registers[registerIndex] = value;
+				return value;
+			}
+			else if (str.Length == 1)
+			{
+				return str[0];
+			}
+			return "";
+		}
+
+		private int HandleCopy(int index, object arg1, object arg2)
+		{
+			if (IsMultiplyCAndDAndAddToAThenClearCAndDShorthand(index))
+			{
+				return MultiplyCAndDAndAddToAThenClearCAndDShorthand(index);
+			}
+
+			if (arg1 is int && arg2 is char)
+			{
+				Registers[(char)arg2] = (int)arg1;
 			}
 			else
 			{
-				var sourceIndex = CharToRegisterId(arg1[0]);
-				var targetIndex = CharToRegisterId(arg2[0]);
-				Registers[targetIndex] = Registers[sourceIndex];
+				Registers[(char)arg2] = Registers[(char)arg1];
 			}
 
 			return ++index;
 		}
 
-		private int HandleIncrement(int index, string arg1, string arg2)
+		private int HandleIncrement(int index, object arg1, object arg2)
 		{
-			if (!string.IsNullOrEmpty(arg2)) { return ++index; }
+			if (arg2 is string && !string.IsNullOrEmpty((string)arg2)) { return ++index; }
 
-			var registerIndex = CharToRegisterId(arg1[0]);
-			Registers[registerIndex]++;
+			if (IsAddBToAThenClearBShorthand(index))
+			{
+				return AddBToAThenClearBShorthand(index);
+			}
+
+			Registers[(char)arg1]++;
 			return ++index;
 		}
 
-		private int HandleDecrement(int index, string arg1, string arg2)
+		private int HandleDecrement(int index, object arg1, object arg2)
 		{
-			if (!string.IsNullOrEmpty(arg2)) { return ++index; }
+			if (arg2 is string && !string.IsNullOrEmpty((string)arg2)) { return ++index; }
 
-			var registerIndex = CharToRegisterId(arg1[0]);
-			Registers[registerIndex]--;
+			Registers[(char)arg1]--;
 			return ++index;
 		}
 
-		private int HandleJump(int index, string arg1, string arg2)
+		private int HandleJump(int index, object arg1, object arg2)
 		{
-			if (char.IsDigit(arg1[0]) && arg1[0] != '0')
+			if (arg1 is int && (int)arg1 != 0)
 			{
 				return index + CharToValue(arg2);
 			}
-			else if (char.IsLetter(arg1[0]))
+			else if (arg1 is char && char.IsLetter((char)arg1))
 			{
-				var value = Registers[CharToRegisterId(arg1[0])];
-				value = value == 0 ? 1 : int.Parse(arg2);
+				var value = Registers[(char)arg1];
+				value = value == 0 ? 1 : (int)arg2;
 				return index + value;
 			}
 			return ++index;
 		}
 
-		private int HandleToggle(int index, string arg1, string arg2)
+		private int HandleToggle(int index, object arg1, object arg2)
 		{
 			var steps = CharToValue(arg1);
 			if (steps + index < 0 || steps + index >= _instructions.Count)
@@ -96,49 +136,109 @@ namespace adventofcode2016.Tools
 
 			if (steps == 0)
 			{
-				_instructions[steps + index] = _instructions[steps + index].Replace("tgl", "inc");
+				if (_instructions[steps + index].Type == InstructionType.Tgl)
+				{
+					_instructions[steps + index].Type = InstructionType.Inc;
+				}
 			}
 			else
 			{
-				var instruction = _instructions[steps + index];
-				if (instruction.StartsWith("inc"))
+				switch (_instructions[steps + index].Type)
 				{
-					instruction = instruction.Replace("inc", "dec");
+					case InstructionType.Inc:
+						_instructions[steps + index].Type = InstructionType.Dec;
+						break;
+					case InstructionType.Dec:
+					case InstructionType.Tgl:
+						_instructions[steps + index].Type = InstructionType.Inc;
+						break;
+					case InstructionType.Jnz:
+						_instructions[steps + index].Type = InstructionType.Cpy;
+						break;
+					case InstructionType.Cpy:
+						_instructions[steps + index].Type = InstructionType.Jnz;
+						break;
+					default:
+						throw new Exception("Invalid instruction found.");
 				}
-				else if (instruction.StartsWith("dec"))
-				{
-					instruction = instruction.Replace("dec", "inc");
-				}
-				else if (instruction.StartsWith("tgl"))
-				{
-					instruction = instruction.Replace("tgl", "inc");
-				}
-				else if (instruction.StartsWith("jnz"))
-				{
-					instruction = instruction.Replace("jnz", "cpy");
-				}
-				else if (instruction.StartsWith("cpy"))
-				{
-					instruction = instruction.Replace("cpy", "jnz");
-				}
-				else
-				{
-					throw new Exception("Invalid instruction found.");
-				}
-				_instructions[steps + index] = instruction;
 			}
 
 			return ++index;
 		}
 
-		private int CharToRegisterId(char c)
+		private int CharToValue(object arg)
 		{
-			return c - 'a';
+			return arg is int ? (int)arg : Registers[(char)arg];
 		}
 
-		private int CharToValue(string arg)
+		private bool IsEqual(object operand1, object operand2)
 		{
-			return char.IsDigit(arg[0]) ? int.Parse(arg) : Registers[CharToRegisterId(arg[0])];
+			if (operand1 is char && operand2 is char)
+			{
+				return (char)operand1 == (char)operand2;
+			}
+			else if (operand1 is int && operand2 is int)
+			{
+				return (int)operand1 == (int)operand2;
+			}
+
+			return false;
+		}
+
+		private bool IsAddBToAThenClearBShorthand(int index)
+		{
+			/*
+			 * inc a
+			 * dec b
+			 * jnz b -2
+			 */
+			return _instructions[index].Type == InstructionType.Inc &&
+				_instructions[index + 1].Type == InstructionType.Dec &&
+				_instructions[index + 2].Type == InstructionType.Jnz &&
+				IsEqual(_instructions[index + 1].Operand1, _instructions[index + 2].Operand1) &&
+				IsEqual(_instructions[index + 2].Operand2, -2);
+		}
+
+		private int AddBToAThenClearBShorthand(int index)
+		{
+			var registerToInc = (char)_instructions[index].Operand1;
+			var registerToDec = (char)_instructions[index + 1].Operand1;
+
+			Registers[registerToInc] += Registers[registerToDec];
+			Registers[registerToDec] = 0;
+			return (index + 3);
+		}
+
+		private bool IsMultiplyCAndDAndAddToAThenClearCAndDShorthand(int index)
+		{
+			/*
+			 * cpy b c
+			 * inc a
+			 * dec c
+			 * jnz c -2
+			 * dec d
+			 * jnz d -5
+			 */
+			return _instructions[index].Type == InstructionType.Cpy &&
+				IsAddBToAThenClearBShorthand(index + 1) &&
+				_instructions[index + 4].Type == InstructionType.Dec &&
+				_instructions[index + 5].Type == InstructionType.Jnz &&
+				IsEqual(_instructions[index].Operand2, _instructions[index + 2].Operand1) &&
+				IsEqual(_instructions[index + 4].Operand1, _instructions[index + 5].Operand1) &&
+				IsEqual(_instructions[index + 5].Operand2, -5);
+		}
+
+		private int MultiplyCAndDAndAddToAThenClearCAndDShorthand(int index)
+		{
+			var registerA = (char)_instructions[index + 1].Operand1;
+			var registerC = (char)_instructions[index].Operand2;
+			var registerD = (char)_instructions[index + 4].Operand1;
+
+			Registers[registerA] += CharToValue(_instructions[index].Operand1) * Registers[registerD];
+			Registers[registerC] = 0;
+			Registers[registerD] = 0;
+
+			return (index + 6);
 		}
 	}
 }
