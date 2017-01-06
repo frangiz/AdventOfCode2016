@@ -84,31 +84,31 @@ namespace adventofcode2016
 				return false;
 			}
 
-			public long SolvePartB()
+			public long SolvePartB(bool animate)
 			{
 				var steps = 0;
 				_currentNode = _nodes.Find(n => n.Used == 0);
 
-				steps += Move(0, -1, 2);
-				steps += Move(-1, 0, 6);
-				steps += Move(0, -1, 23);
-				steps += Move(1, 0, 12);
+				steps += Move(0, -1, 2, animate);
+				steps += Move(-1, 0, 6, animate);
+				steps += Move(0, -1, 23, animate);
+				steps += Move(1, 0, 12, animate);
 
 				for (int i = 0; i < _width - 2; i++)
 				{
-					steps += Move(0, -1, 1);
-					steps += Move(1, 0, 1);
-					steps += Move(0, 1, 1);
-					steps += Move(-1, 0, 2);
+					steps += Move(0, -1, 1, animate);
+					steps += Move(1, 0, 1, animate);
+					steps += Move(0, 1, 1, animate);
+					steps += Move(-1, 0, 2, animate);
 				}
 
-				steps += Move(0, -1, 1);
-				steps += Move(1, 0, 1);
+				steps += Move(0, -1, 1, animate);
+				steps += Move(1, 0, 1, animate);
 
 				return steps;
 			}
 
-			private int Move(int dx, int dy, int steps)
+			private int Move(int dx, int dy, int steps, bool animate)
 			{
 				for (int i = 0; i < steps; i++)
 				{
@@ -124,7 +124,7 @@ namespace adventofcode2016
 
 					_currentNode = targetNode;
 
-					Draw();
+					if (animate) { Draw(); }
 				}
 
 				return steps;
@@ -170,19 +170,20 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 22: Grid Computing ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var cluster = new Cluster();
-				cluster.CreateNodes(File.ReadAllLines("Day22_input.txt"));
-				Console.WriteLine("Answer A: " + cluster.ViablePairs);
-			}
-			{
-				var cluster = new Cluster();
-				cluster.CreateNodes(File.ReadAllLines("Day22_input.txt"));
-				Console.WriteLine("Answer B: " + cluster.SolvePartB());
-			}
-			Console.WriteLine();
+			var cluster = new Cluster();
+			cluster.CreateNodes(File.ReadAllLines("Day22_input.txt"));
+
+			return "" + cluster.ViablePairs;
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var cluster = new Cluster();
+			cluster.CreateNodes(File.ReadAllLines("Day22_input.txt"));
+
+			return "" + cluster.SolvePartB(animate);
 		}
 	}
 }

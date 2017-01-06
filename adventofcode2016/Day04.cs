@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace adventofcode2016
 {
-	public class Day4 : IDay
+	public class Day04 : IDay
 	{
 		// ---------------------------------------------------------------------------
 		public class Room
@@ -129,15 +129,14 @@ namespace adventofcode2016
 		// --------------------------------------------------------------------
 		public string Name { get { return "--- Day 4: Security Through Obscurity ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				Console.WriteLine("Answer A: " + FindSectorId(File.ReadAllLines("Day4_input.txt")).Item1);
-			}
-			{
-				Console.WriteLine("Answer B: " + FindSectorId(File.ReadAllLines("Day4_input.txt"), true).Item2);
-			}
-			Console.WriteLine();
+			return "" + FindSectorId(File.ReadAllLines("Day4_input.txt")).Item1;
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			return "" + FindSectorId(File.ReadAllLines("Day4_input.txt"), true).Item2;
 		}
 	}
 }

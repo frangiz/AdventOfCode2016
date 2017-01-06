@@ -6,7 +6,7 @@ using System.Numerics;
 
 namespace adventofcode2016
 {
-	public class Day1 : IDay
+	public class Day01 : IDay
 	{
 		public class DistanceFinder
 		{
@@ -81,11 +81,14 @@ namespace adventofcode2016
 		// --------------------------------------------------------------------
 		public string Name { get { return "--- Day 1: No Time for a Taxicab ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			Console.WriteLine("Answer A: " + new DistanceFinder().FindDistance(File.ReadAllText("Day1_input.txt")));
-			Console.WriteLine("Answer B: " + new DistanceFinder(true).FindDistance(File.ReadAllText("Day1_input.txt")));
-			Console.WriteLine();
+			return "" + new DistanceFinder().FindDistance(File.ReadAllText("Day1_input.txt"));
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			return "" + new DistanceFinder(true).FindDistance(File.ReadAllText("Day1_input.txt"));
 		}
 	}
 }

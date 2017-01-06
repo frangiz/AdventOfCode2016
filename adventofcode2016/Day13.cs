@@ -39,19 +39,18 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 13: A Maze of Twisty Little Cubicles ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var solver = new PuzzleSolver(1362);
-				Console.WriteLine("Answer A: " + solver.FindShortestPath(
-					new Point(1, 1), new Point(31, 39)));
-			}
-			{
-				var solver = new PuzzleSolver(1362);
-				Console.WriteLine("Answer B: " + solver.CountPathsLessThan50(
-					new Point(1, 1), new Point(31, 39)));
-			}
-			Console.WriteLine();
+			var solver = new PuzzleSolver(1362);
+
+			return "" + solver.FindShortestPath(new Point(1, 1), new Point(31, 39));
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var solver = new PuzzleSolver(1362);
+
+			return "" + solver.CountPathsLessThan50(new Point(1, 1), new Point(31, 39));
 		}
 	}
 }

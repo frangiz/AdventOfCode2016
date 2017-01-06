@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace adventofcode2016
 {
-	public class Day6 : IDay
+	public class Day06 : IDay
 	{
 		public static string Decode(int length, IEnumerable<string> lines, bool selectLeastCommonChar = false)
 		{
@@ -53,12 +52,18 @@ namespace adventofcode2016
 		// --------------------------------------------------------------------
 		public string Name { get { return "--- Day 6: Signals and Noise ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
 			var lines = File.ReadAllLines("Day6_input.txt");
-			Console.WriteLine("Answer A: " + Day6.Decode(lines[0].Length, lines));
-			Console.WriteLine("Answer B: " + Day6.Decode(lines[0].Length, lines, true));
-			Console.WriteLine();
+
+			return Day06.Decode(lines[0].Length, lines);
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var lines = File.ReadAllLines("Day6_input.txt");
+
+			return Day06.Decode(lines[0].Length, lines, true);
 		}
 	}
 }

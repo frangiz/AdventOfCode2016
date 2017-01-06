@@ -132,17 +132,22 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 10: Balance Bots ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
 			var botFactory = new BotFactory(210, 200);
 			botFactory.AddInstructions(File.ReadAllLines("Day10_input.txt").OrderBy(l => l));
 
-			Console.WriteLine("Answer A: " + botFactory.Bots
-				.First(b => b.ComparedValues.Contains(new Tuple<int, int>(17, 61))).BotId);
+			return "" + botFactory.Bots
+				.First(b => b.ComparedValues.Contains(new Tuple<int, int>(17, 61))).BotId;
+		}
 
-			Console.WriteLine("Answer B: " + botFactory.OutputBins.Take(3)
-				.Select(o => o.Value).Aggregate(1, (x, y) => x * y));
-			Console.WriteLine();
+		public string GetAnswerB(bool animate = false)
+		{
+			var botFactory = new BotFactory(210, 200);
+			botFactory.AddInstructions(File.ReadAllLines("Day10_input.txt").OrderBy(l => l));
+
+			return "" + botFactory.OutputBins.Take(3)
+				.Select(o => o.Value).Aggregate(1, (x, y) => x * y);
 		}
 	}
 }

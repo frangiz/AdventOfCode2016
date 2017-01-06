@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace adventofcode2016
+﻿namespace adventofcode2016
 {
 	public class Day19 : IDay
 	{
@@ -85,19 +83,20 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 19: An Elephant Named Joseph ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var game = new WhiteElephantGame(3005290);
-				game.TakePresentsFromLeft();
-				Console.WriteLine("Answer A: " + game.WhoHasAllThePresents);
-			}
-			{
-				var game = new WhiteElephantGame(3005290);
-				game.TakePresentsFromOpposite();
-				Console.WriteLine("Answer B: " + game.WhoHasAllThePresents);
-			}
-			Console.WriteLine();
+			var game = new WhiteElephantGame(3005290);
+			game.TakePresentsFromLeft();
+
+			return "" + game.WhoHasAllThePresents;
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var game = new WhiteElephantGame(3005290);
+			game.TakePresentsFromOpposite();
+
+			return "" + game.WhoHasAllThePresents;
 		}
 	}
 }

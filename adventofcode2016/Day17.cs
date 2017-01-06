@@ -113,17 +113,18 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 17: Two Steps Forward ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var solver = new PuzzleSolver();
-				Console.WriteLine("Answer A: " + solver.FindShortestPath("qljzarfv"));
-			}
-			{
-				var solver = new PuzzleSolver();
-				Console.WriteLine("Answer B: " + solver.FindLongestPath("qljzarfv").Length);
-			}
-			Console.WriteLine();
+			var solver = new PuzzleSolver();
+
+			return solver.FindShortestPath("qljzarfv");
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var solver = new PuzzleSolver();
+
+			return "" + solver.FindLongestPath("qljzarfv").Length;
 		}
 	}
 }

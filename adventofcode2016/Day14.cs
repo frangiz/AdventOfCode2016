@@ -119,17 +119,20 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 14: One-Time Pad ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
 			var generator = new KeyGenerator("yjdafjpo");
 			generator.GenerateKeys();
-			Console.WriteLine("Answer A: " + generator.IndexForKeyIndex(63));
 
-			generator = new KeyGenerator("yjdafjpo");
-			generator.GenerateKeys(2016+1);
-			Console.WriteLine("Answer B: " + generator.IndexForKeyIndex(63));
+			return "" + generator.IndexForKeyIndex(63);
+		}
 
-			Console.WriteLine();
+		public string GetAnswerB(bool animate = false)
+		{
+			var generator = new KeyGenerator("yjdafjpo");
+			generator.GenerateKeys(2016 + 1);
+
+			return "" + generator.IndexForKeyIndex(63);
 		}
 	}
 }

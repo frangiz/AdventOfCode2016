@@ -4,7 +4,7 @@ using System.Text;
 
 namespace adventofcode2016
 {
-	public class Day5 : IDay
+	public class Day05 : IDay
 	{
 		public static char[] FindPassword(string doorId, int charsToGet, bool part2 = false)
 		{
@@ -46,11 +46,14 @@ namespace adventofcode2016
 		// --------------------------------------------------------------------
 		public string Name { get { return "--- Day 5: How About a Nice Game of Chess? ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			Console.WriteLine("Answer A: " + new string(FindPassword("ojvtpuvg", 8)));
-			Console.WriteLine("Answer B: " + new string(FindPassword("ojvtpuvg", 8, true)));
-			Console.WriteLine();
+			return new string(FindPassword("ojvtpuvg", 8));
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			return new string(FindPassword("ojvtpuvg", 8, true));
 		}
 	}
 }

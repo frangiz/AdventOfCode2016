@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace adventofcode2016
 {
-	public class Day8 : IDay
+	public class Day08 : IDay
 	{
 		public class Monitor
 		{
@@ -116,7 +116,7 @@ namespace adventofcode2016
 
 		// ---------------------------------------------------------------------------
 		private readonly Monitor _monitor;
-		public Day8()
+		public Day08()
 		{
 			_monitor = new Monitor(50, 6);
 			foreach (var line in File.ReadAllLines("Day8_input.txt"))
@@ -127,15 +127,14 @@ namespace adventofcode2016
 
 		public string Name { get { return "--- Day 8: Two-Factor Authentication ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			Console.WriteLine("Answer A: " + _monitor.NumberOfPixelsLit());
-			Console.WriteLine("Answer B: ");
-			foreach (var line in _monitor.GetOutput())
-			{
-				Console.WriteLine(line);
-			}
-			Console.WriteLine();
+			return "" + _monitor.NumberOfPixelsLit();
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			return string.Join(Environment.NewLine, _monitor.GetOutput());
 		}
 	}
 }

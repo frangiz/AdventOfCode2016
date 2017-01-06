@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -71,19 +70,20 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 18: Like a Rogue ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var trapRoom = new TrapRoom(File.ReadAllText("Day18_input.txt").Trim());
-				trapRoom.AddRows(39);
-				Console.WriteLine("Answer A: " + trapRoom.NumberOfSafeTiles);
-			}
-			{
-				var trapRoom = new TrapRoom(File.ReadAllText("Day18_input.txt").Trim());
-				trapRoom.AddRows(399999);
-				Console.WriteLine("Answer B: " + trapRoom.NumberOfSafeTiles);
-			}
-			Console.WriteLine();
+			var trapRoom = new TrapRoom(File.ReadAllText("Day18_input.txt").Trim());
+			trapRoom.AddRows(39);
+
+			return "" + trapRoom.NumberOfSafeTiles;
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var trapRoom = new TrapRoom(File.ReadAllText("Day18_input.txt").Trim());
+			trapRoom.AddRows(399999);
+
+			return "" + trapRoom.NumberOfSafeTiles;
 		}
 	}
 }

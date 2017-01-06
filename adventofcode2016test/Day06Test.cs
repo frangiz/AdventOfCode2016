@@ -6,7 +6,7 @@ using System.IO;
 namespace adventofcode2016test
 {
 	[TestFixture]
-	internal class Day6Test
+	internal class Day06Test
 	{
 		[Test]
 		public void ExampleA1()
@@ -30,14 +30,14 @@ namespace adventofcode2016test
 				"dvrsen",
 				"enarar"
 			};
-			Assert.AreEqual("easter", Day6.Decode(lines[0].Length, lines));
+			Assert.AreEqual("easter", Day06.Decode(lines[0].Length, lines));
 		}
 
 		[Test]
 		public void AnswerA()
 		{
 			var lines = File.ReadAllLines("Day6_input.txt");
-			Assert.AreEqual("qqqluigu", Day6.Decode(lines[0].Length, lines));
+			Assert.AreEqual("qqqluigu", Day06.Decode(lines[0].Length, lines));
 		}
 
 		[Test]
@@ -62,14 +62,14 @@ namespace adventofcode2016test
 				"dvrsen",
 				"enarar"
 			};
-			Assert.AreEqual("advent", Day6.Decode(lines[0].Length, lines, true));
+			Assert.AreEqual("advent", Day06.Decode(lines[0].Length, lines, true));
 		}
 
 		[Test]
 		public void AnswerB()
 		{
 			var lines = File.ReadAllLines("Day6_input.txt");
-			Assert.AreEqual("lsoypmia", Day6.Decode(lines[0].Length, lines, true));
+			Assert.AreEqual("lsoypmia", Day06.Decode(lines[0].Length, lines, true));
 		}
 	}
 }

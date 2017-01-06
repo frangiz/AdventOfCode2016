@@ -4,6 +4,7 @@
 	{
 		string Name { get; }
 
-		void PrintDay();
+		string GetAnswerA(bool animate = false);
+		string GetAnswerB(bool animate = false);
 	}
 }

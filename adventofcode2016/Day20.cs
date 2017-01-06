@@ -63,17 +63,18 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 20: Firewall Rules ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var fw = new Firewall(File.ReadAllLines("DAy20_input.txt"));
-				Console.WriteLine("Answer A: " + fw.LowestAvailableIP(0, ulong.MaxValue));
-			}
-			{
-				var fw = new Firewall(File.ReadAllLines("DAy20_input.txt"));
-				Console.WriteLine("Answer B: " + fw.NumberOfAllowedIps(0, uint.MaxValue));
-			}
-			Console.WriteLine();
+			var fw = new Firewall(File.ReadAllLines("DAy20_input.txt"));
+
+			return "" + fw.LowestAvailableIP(0, ulong.MaxValue);
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var fw = new Firewall(File.ReadAllLines("DAy20_input.txt"));
+
+			return "" + fw.NumberOfAllowedIps(0, uint.MaxValue);
 		}
 	}
 }

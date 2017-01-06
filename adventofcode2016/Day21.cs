@@ -223,19 +223,18 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 21: Scrambled Letters and Hash ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var scrambler = new Scrambler();
-				Console.WriteLine("Answer A: " + scrambler.Scramble("abcdefgh",
-					File.ReadAllLines("Day21_input.txt")));
-			}
-			{
-				var scrambler = new Scrambler();
-				Console.WriteLine("Answer A: " + scrambler.Unscramble("fbgdceah",
-					File.ReadAllLines("Day21_input.txt")));
-			}
-			Console.WriteLine();
+			var scrambler = new Scrambler();
+
+			return scrambler.Scramble("abcdefgh", File.ReadAllLines("Day21_input.txt"));
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var scrambler = new Scrambler();
+
+			return scrambler.Unscramble("fbgdceah", File.ReadAllLines("Day21_input.txt"));
 		}
 	}
 }

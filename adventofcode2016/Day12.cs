@@ -1,5 +1,4 @@
 ﻿using adventofcode2016.Tools;
-using System;
 using System.IO;
 using System.Linq;
 
@@ -10,20 +9,21 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 12: Leonardo's Monorail ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var computer = new AssemBunny();
-				computer.ExecuteInstructions(File.ReadAllLines("Day12_input.txt").ToList());
-				Console.WriteLine("Answer A: " + computer.Registers['a']);
-			}
-			{
-				var computer = new AssemBunny();
-				computer.Registers['c'] = 1;
-				computer.ExecuteInstructions(File.ReadAllLines("Day12_input.txt").ToList());
-				Console.WriteLine("Answer B: " + computer.Registers['a']);
-			}
-			Console.WriteLine();
+			var computer = new AssemBunny();
+			computer.ExecuteInstructions(File.ReadAllLines("Day12_input.txt").ToList());
+
+			return "" + computer.Registers['a'];
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var computer = new AssemBunny();
+			computer.Registers['c'] = 1;
+			computer.ExecuteInstructions(File.ReadAllLines("Day12_input.txt").ToList());
+
+			return "" + computer.Registers['a'];
 		}
 	}
 }

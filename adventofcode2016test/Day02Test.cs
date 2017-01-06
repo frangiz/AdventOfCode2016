@@ -6,42 +6,42 @@ using System.IO;
 namespace adventofcode2016test
 {
 	[TestFixture]
-	internal class Day2Test
+	internal class Day02Test
 	{
 		[Test]
 		public void NoMoveReturnsStartButton()
 		{
-			Assert.AreEqual('5', new Day2.KeyPad('5').Move(""));
+			Assert.AreEqual('5', new Day02.KeyPad('5').Move(""));
 		}
 
 		[Test]
 		public void TestMoveOutsideOfLeftSideIsBlocked()
 		{
-			Assert.AreEqual('4', new Day2.KeyPad('5').Move("LL"));
+			Assert.AreEqual('4', new Day02.KeyPad('5').Move("LL"));
 		}
 
 		[Test]
 		public void TestMoveOutsideOfRightSideIsBlocked()
 		{
-			Assert.AreEqual('6', new Day2.KeyPad('5').Move("RR"));
+			Assert.AreEqual('6', new Day02.KeyPad('5').Move("RR"));
 		}
 
 		[Test]
 		public void TestMoveOutsideOfTopSideIsBlocked()
 		{
-			Assert.AreEqual('2', new Day2.KeyPad('5').Move("UU"));
+			Assert.AreEqual('2', new Day02.KeyPad('5').Move("UU"));
 		}
 
 		[Test]
 		public void TestMoveOutsideOfBottomSideIsBlocked()
 		{
-			Assert.AreEqual('8', new Day2.KeyPad('5').Move("DD"));
+			Assert.AreEqual('8', new Day02.KeyPad('5').Move("DD"));
 		}
 
 		[Test]
 		public void ExampleA1()
 		{
-			var keypad = new Day2.KeyPad('5');
+			var keypad = new Day02.KeyPad('5');
 			var moves = new List<string>
 			{
 				"ULL",
@@ -56,7 +56,7 @@ namespace adventofcode2016test
 		[Test]
 		public void AnswerA()
 		{
-			var keypad = new Day2.KeyPad('5');
+			var keypad = new Day02.KeyPad('5');
 			foreach (var move in File.ReadAllLines("Day2_input.txt"))
 			{
 				keypad.Move(move);
@@ -67,7 +67,7 @@ namespace adventofcode2016test
 		[Test]
 		public void ExampleB1()
 		{
-			var keypad = new Day2.KeyPad('5', false);
+			var keypad = new Day02.KeyPad('5', false);
 			Assert.AreEqual('5', keypad.Move(""));
 			Assert.AreEqual('D', keypad.Move("RRDDD"));
 			Assert.AreEqual('B', keypad.Move("DURRL"));
@@ -78,7 +78,7 @@ namespace adventofcode2016test
 		[Test]
 		public void AnswerB()
 		{
-			var keypad = new Day2.KeyPad('5', false);
+			var keypad = new Day02.KeyPad('5', false);
 			foreach (var move in File.ReadAllLines("Day2_input.txt"))
 			{
 				keypad.Move(move);

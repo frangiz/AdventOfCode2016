@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -52,18 +51,19 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 15: Timing is Everything ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var sculptur = new Sculptur(File.ReadAllLines("Day15_input.txt"));
-				Console.WriteLine("Answer A: " + sculptur.AlignDiscs());
-			}
-			{
-				var sculptur = new Sculptur(File.ReadAllLines("Day15_input.txt"));
-				sculptur.AddDisc("Disc #7 has 11 positions; at time=0, it is at position 0.");
-				Console.WriteLine("Answer B: " + sculptur.AlignDiscs());
-			}
-			Console.WriteLine();
+			var sculptur = new Sculptur(File.ReadAllLines("Day15_input.txt"));
+
+			return "" + sculptur.AlignDiscs();
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var sculptur = new Sculptur(File.ReadAllLines("Day15_input.txt"));
+			sculptur.AddDisc("Disc #7 has 11 positions; at time=0, it is at position 0.");
+
+			return "" + sculptur.AlignDiscs();
 		}
 	}
 }

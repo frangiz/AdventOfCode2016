@@ -1,13 +1,12 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text.RegularExpressions;
 
 namespace adventofcode2016
 {
-	public class Day9 : IDay
+	public class Day09 : IDay
 	{
 		// ---------------------------------------------------------------------------
-		public Day9() { }
+		public Day09() { }
 
 		public static ulong Expand(string str, bool partB = false)
 		{
@@ -38,11 +37,14 @@ namespace adventofcode2016
 
 		public string Name { get { return "--- Day 9: Explosives in Cyberspace ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			Console.WriteLine("Answer A: " + Expand(File.ReadAllText("Day9_input.txt")));
-			Console.WriteLine("Answer B: " + Expand(File.ReadAllText("Day9_input.txt"), true));
-			Console.WriteLine();
+			return "" +Expand(File.ReadAllText("Day9_input.txt"));
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			return "" +Expand(File.ReadAllText("Day9_input.txt"), true);
 		}
 	}
 }

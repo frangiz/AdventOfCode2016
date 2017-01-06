@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace adventofcode2016
 {
-	public class Day3 : IDay
+	public class Day03 : IDay
 	{
 		// ---------------------------------------------------------------------------
 		public class Parser
@@ -117,17 +116,16 @@ namespace adventofcode2016
 		// --------------------------------------------------------------------
 		public string Name { get { return "--- Day 3: Squares With Three Sides ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				Console.WriteLine("Answer A: " + Day3.ValidTriangles(
-					new HorizontalParser(File.ReadAllLines("Day3_input.txt"))));
-			}
-			{
-				Console.WriteLine("Answer A: " + Day3.ValidTriangles(
-					new VerticalParser(File.ReadAllLines("Day3_input.txt"))));
-			}
-			Console.WriteLine();
+			return "" + Day03.ValidTriangles(
+					new HorizontalParser(File.ReadAllLines("Day3_input.txt")));
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			return "" + Day03.ValidTriangles(
+					new VerticalParser(File.ReadAllLines("Day3_input.txt")));
 		}
 	}
 }

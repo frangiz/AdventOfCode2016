@@ -99,17 +99,18 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 24: Air Duct Spelunking ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var solver = new Solver(File.ReadAllLines("Day24_input.txt"));
-				Console.WriteLine("Answer A: " + solver.FindShortestDistance(false));
-			}
-			{
-				var solver = new Solver(File.ReadAllLines("Day24_input.txt"));
-				Console.WriteLine("Answer B: " + solver.FindShortestDistance(true));
-			}
-			Console.WriteLine();
+			var solver = new Solver(File.ReadAllLines("Day24_input.txt"));
+
+			return "" + solver.FindShortestDistance(false);
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var solver = new Solver(File.ReadAllLines("Day24_input.txt"));
+
+			return "" + solver.FindShortestDistance(true);
 		}
 	}
 }

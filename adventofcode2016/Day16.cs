@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 
 namespace adventofcode2016
@@ -31,17 +30,18 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 16: Dragon Checksum ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var data = GenerateData("01000100010010111", 272);
-				Console.WriteLine("Answer A: " + GenerateChecksum(data));
-			}
-			{
-				var data = GenerateData("01000100010010111", 35651584);
-				Console.WriteLine("Answer B: " + GenerateChecksum(data));
-			}
-			Console.WriteLine();
+			var data = GenerateData("01000100010010111", 272);
+
+			return GenerateChecksum(data);
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var data = GenerateData("01000100010010111", 35651584);
+
+			return GenerateChecksum(data);
 		}
 	}
 }

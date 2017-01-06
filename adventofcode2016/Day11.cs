@@ -117,7 +117,7 @@ namespace adventofcode2016
 			_unvisited = new Queue<State>();
 		}
 
-		public int SearchAnswer(State startSate, State endState)
+		public int SearchAnswer(State startSate, State endState, bool animate = false)
 		{
 			_finalState = endState;
 			_unvisited.Enqueue(startSate);
@@ -131,7 +131,7 @@ namespace adventofcode2016
 
 				if (state.Equals(_finalState))
 				{
-					Animate(state);
+					if (animate) { Animate(state); }
 					return state.Distance;
 				}
 
@@ -208,20 +208,20 @@ namespace adventofcode2016
 		// ---------------------------------------------------------------------------
 		public string Name { get { return "--- Day 11: Radioisotope Thermoelectric Generators ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var startState = new State(new[] { 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 }, 0, 0, null);
-				var endState = new State(new[]   { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 }, 0, 3, null);
-				Console.WriteLine("Answer A: " + SearchAnswer(startState, endState));
-			}
-			{
-				var startState = new State(new[] { 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, 0, 0, null);
-				var endState = new State(new[]   { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 }, 0, 3, null);
-				Console.WriteLine("Answer B: " + SearchAnswer(startState, endState));
-			}
-			Console.WriteLine();
+			var startState = new State(new[] { 0, 1, 0, 0, 0, 1, 0, 0, 0, 0 }, 0, 0, null);
+			var endState = new State(new[] { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 }, 0, 3, null);
+
+			return "" + SearchAnswer(startState, endState, animate);
 		}
 
+		public string GetAnswerB(bool animate = false)
+		{
+			var startState = new State(new[] { 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }, 0, 0, null);
+			var endState = new State(new[] { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 }, 0, 3, null);
+
+			return "" + SearchAnswer(startState, endState, animate);
+		}
 	}
 }

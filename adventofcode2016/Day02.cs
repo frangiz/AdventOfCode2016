@@ -3,7 +3,7 @@ using System.IO;
 
 namespace adventofcode2016
 {
-	public class Day2 : IDay
+	public class Day02 : IDay
 	{
 		public class KeyPad
 		{
@@ -113,19 +113,20 @@ namespace adventofcode2016
 		// --------------------------------------------------------------------
 		public string Name { get { return "--- Day 2: Bathroom Security ---"; } }
 
-		public void PrintDay()
+		public string GetAnswerA(bool animate = false)
 		{
-			{
-				var keypad = new KeyPad('5');
-				foreach (var move in File.ReadAllLines("Day2_input.txt")) { keypad.Move(move); }
-				Console.WriteLine("Answer A: " + keypad.KeysPressed);
-			}
-			{
-				var keypad = new KeyPad('5', false);
-				foreach (var move in File.ReadAllLines("Day2_input.txt")) { keypad.Move(move); }
-				Console.WriteLine("Answer B: " + keypad.KeysPressed);
-			}
-			Console.WriteLine();
+			var keypad = new KeyPad('5');
+			foreach (var move in File.ReadAllLines("Day2_input.txt")) { keypad.Move(move); }
+
+			return keypad.KeysPressed;
+		}
+
+		public string GetAnswerB(bool animate = false)
+		{
+			var keypad = new KeyPad('5', false);
+			foreach (var move in File.ReadAllLines("Day2_input.txt")) { keypad.Move(move); }
+
+			return keypad.KeysPressed;
 		}
 	}
 }
