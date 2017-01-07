@@ -13,31 +13,27 @@ namespace adventofcode2016
 			int index = 0;
 			while (index < charsToGet)
 			{
-				var hash = doorId + counter.ToString();
 				using (var md5 = MD5.Create())
 				{
-					var bytes = md5.ComputeHash(Encoding.ASCII.GetBytes(hash));
-					hash = BitConverter.ToString(bytes).Replace("-", "");
-				}
-				if (hash.StartsWith("00000"))
-				{
-					if (part2)
+					var bytes = md5.ComputeHash(Encoding.ASCII.GetBytes(doorId + counter.ToString()));
+					if (bytes[0] == 0 && bytes[1] == 0 && bytes[2] <= 0x0F)
 					{
-						var i = 0;
-						if (int.TryParse(hash[5].ToString(), out i) &&
-							i < password.Length &&
-							password[i] == '\0')
+						if (part2)
 						{
-							password[i] = char.ToLower(hash[6]);
-							index++;
+							var i = (bytes[2] & 0x0F);
+							if (i < 0x0A && i < password.Length && password[i] == '\0')
+							{
+								password[i] = char.ToLower((bytes[3] & 0xF0).ToString("X")[0]);
+								index++;
+							}
+						}
+						else
+						{
+							password[index++] = char.ToLower((bytes[2] & 0x0F).ToString("X")[0]);
 						}
 					}
-					else
-					{
-						password[index++] = char.ToLower(hash[5]);
-					}
+					counter++;
 				}
-				counter++;
 			}
 
 			return password;

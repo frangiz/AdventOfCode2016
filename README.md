@@ -14,7 +14,7 @@ My solution for the project [AdventOfCode2016](http://adventofcode.com/).
 | 02  | 0,15 |
 | 03  | 2,38 |
 | 04  | 13,66 |
-| 05  | 177614 |
+| 05  | 137914 |
 | 06  | 0,59 |
 | 07  | 20,39 |
 | 08  | 0,04 |
@@ -35,4 +35,4 @@ My solution for the project [AdventOfCode2016](http://adventofcode.com/).
 | 23  | 0,14 |
 | 24  | 418,27 |
 | 25  | 185,77 |
-| **Sum** | **783241,67** |
+| **Sum** | **743541,67** |

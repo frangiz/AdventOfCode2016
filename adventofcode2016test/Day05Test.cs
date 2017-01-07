@@ -37,8 +37,7 @@ namespace adventofcode2016test
 		[Test]
 		public void AnswerA()
 		{
-			Assert.AreEqual(new char[] { '4', '5', '4', '3', 'c', '1', '5', '4' }, 
-				Day05.FindPassword("ojvtpuvg", 8));
+			Assert.AreEqual("4543c154" , new Day05().GetAnswerA());
 		}
 
 		[Test]
@@ -65,8 +64,7 @@ namespace adventofcode2016test
 		[Test]
 		public void AnswerB()
 		{
-			Assert.AreEqual(new char[] { '1', '0', '5', '0', 'c', 'b', 'b', 'd' },
-				Day05.FindPassword("ojvtpuvg", 8, true));
+			Assert.AreEqual("1050cbbd", new Day05().GetAnswerB());
 		}
 	}
 }
