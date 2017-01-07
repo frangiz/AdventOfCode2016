@@ -6,7 +6,6 @@ My solution for the project [AdventOfCode2016](http://adventofcode.com/).
 * Add check of the answer in the testcases before refactoring any code.
 * Run all days and mark the slow ones.
 * Try to improve the execution time for the slow days.
-* Solve Day25.
 
 ## Performance
 | Day | Time (ms) |
@@ -35,5 +34,5 @@ My solution for the project [AdventOfCode2016](http://adventofcode.com/).
 | 22  | 10,75 |
 | 23  | 0,14 |
 | 24  | 418,27 |
-| 25  | --- |
-| Sum | 783055,9 |
+| 25  | 185,77 |
+| **Sum** | **783241,67** |

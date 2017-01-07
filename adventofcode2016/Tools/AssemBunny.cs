@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace adventofcode2016.Tools
 {
@@ -7,7 +8,7 @@ namespace adventofcode2016.Tools
 	{
 		public readonly Dictionary<char, int> Registers;
 
-		private enum InstructionType { Cpy, Inc, Dec, Jnz, Tgl };
+		private enum InstructionType { Cpy, Inc, Dec, Jnz, Tgl, Out };
 		private readonly Dictionary<InstructionType, Func<int, object, object, int>> _instructionHandlers;
 
 		private class Instruction
@@ -17,6 +18,9 @@ namespace adventofcode2016.Tools
 			public object Operand2 { get; set; }
 		}
 		private List<Instruction> _instructions;
+		public const int MaxOutputLength = 100;
+		public int OutputCounter { get; private set; }
+		private int _lastOutputValue;
 
 		public AssemBunny()
 		{
@@ -28,12 +32,18 @@ namespace adventofcode2016.Tools
 			_instructionHandlers.Add(InstructionType.Dec, HandleDecrement);
 			_instructionHandlers.Add(InstructionType.Jnz, HandleJump);
 			_instructionHandlers.Add(InstructionType.Tgl, HandleToggle);
+			_instructionHandlers.Add(InstructionType.Out, HandleOut);
+		}
+
+		public void Reset()
+		{
+			foreach(var key in Registers.Keys.ToList()) { Registers[key] = 0; }
+			OutputCounter = 0;
+			_lastOutputValue = 1;
 		}
 
 		public void ExecuteInstructions(List<string> instructions)
 		{
-			var popularity = new List<int>();
-			instructions.ForEach(i => popularity.Add(0));
 			var index = 0;
 			_instructions = new List<Instruction>();
 			foreach (var instruction in instructions)
@@ -50,7 +60,6 @@ namespace adventofcode2016.Tools
 
 			while (index >= 0 && index < _instructions.Count)
 			{
-				popularity[index]++;
 				var instruction = _instructions[index];
 				index = _instructionHandlers[instruction.Type].Invoke(
 					index, instruction.Operand1, instruction.Operand2);
@@ -162,6 +171,19 @@ namespace adventofcode2016.Tools
 						throw new Exception("Invalid instruction found.");
 				}
 			}
+
+			return ++index;
+		}
+
+		private int HandleOut(int index, object arg1, object arg2)
+		{
+			var newValue = CharToValue(arg1);
+			if (_lastOutputValue + newValue != 1 || OutputCounter >= MaxOutputLength)
+			{
+				index = int.MaxValue;
+			}
+			_lastOutputValue = newValue;
+			OutputCounter++;
 
 			return ++index;
 		}
